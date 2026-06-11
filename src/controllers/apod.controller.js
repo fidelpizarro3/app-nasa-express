@@ -24,7 +24,13 @@ export const getById = async (req, res) => {
 export const create = async (req, res) => {
   try {
     const { isValid, errors } = validateApod(req.body);
-    if (!isValid) return res.status(400).json({ error: "Datos inválidos", details: errors });
+    if (!isValid) {
+      const details = Object.entries(errors).map(([field, message]) => ({
+        field,
+        message
+      }));
+      return res.status(400).json({ error: "Datos inválidos", details });
+    }
 
     const apod = await apodService.create(req.body);
     res.status(201).json(apod);
@@ -36,7 +42,13 @@ export const create = async (req, res) => {
 export const update = async (req, res) => {
   try {
     const { isValid, errors } = validateApod(req.body);
-    if (!isValid) return res.status(400).json({ error: "Datos inválidos", details: errors });
+    if (!isValid) {
+      const details = Object.entries(errors).map(([field, message]) => ({
+        field,
+        message
+      }));
+      return res.status(400).json({ error: "Datos inválidos", details });
+    }
 
     const apod = await apodService.update(Number(req.params.id), req.body);
     if (!apod) return res.status(404).json({ error: "Recurso no encontrado" });
