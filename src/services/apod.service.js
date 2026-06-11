@@ -76,11 +76,7 @@ export const update = async (id, data) => {
   });
 };
 
-/**
- * Elimina un registro APOD por su ID.
- * @param {number|string} id - ID del registro a eliminar
- */
-export const deleteById = async (id) => {
+export const remove = async (id) => {
   return prisma.apod.delete({
     where: {
       id: parseInt(id, 10),
