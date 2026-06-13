@@ -16,9 +16,9 @@ app.get("/api/health", (_req, res) => {
 
 app.use("/api/apod", apodRouter);
 
-app.use(notFound)
+app.use(notFound);
 
-app.use(errorHandler)
+app.use(errorHandler);
 
 
 export default app;
