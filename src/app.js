@@ -7,7 +7,8 @@ import errorHandler from "./middlewares/errorHandler.js";
 
 const app = express();
 
-app.use(cors({ origin: process.env.FRONTEND_URL }));
+const allowedOrigins = process.env.FRONTEND_URL?.split(',') || [];
+app.use(cors({ origin: allowedOrigins }));
 app.use(express.json());
 
 app.get("/api/health", (_req, res) => {
@@ -17,8 +18,6 @@ app.get("/api/health", (_req, res) => {
 app.use("/api/apod", apodRouter);
 
 app.use(notFound);
-
 app.use(errorHandler);
-
 
 export default app;
