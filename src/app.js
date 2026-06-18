@@ -7,8 +7,16 @@ import errorHandler from "./middlewares/errorHandler.js";
 
 const app = express();
 
-const allowedOrigins = process.env.FRONTEND_URL?.split(',') || [];
-app.use(cors({ origin: allowedOrigins }));
+app.use(cors({
+  origin: (origin, callback) => {
+    const allowed = process.env.FRONTEND_URL?.split(',') || [];
+    if (!origin || allowed.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  }
+}));
 app.use(express.json());
 
 app.get("/api/health", (_req, res) => {
