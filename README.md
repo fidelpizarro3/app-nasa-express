@@ -3,17 +3,17 @@
 ## Miembros del Equipo
 
 - **JOAQUIN DAL DOSSO VULCANO** - (Desarrollador)
-- **MATTEO ALDAY** - (PM / Scrum Master & Desarrollador)
-- **FIDEL PIZARRO** - (Desarrollador)
+- **MATTEO ALDAY** - (Desarrollador)
+- **FIDEL PIZARRO** - (PM / Scrum Master & Desarrollador)
 
 ---
 
 ## Links
 
 - **Repositorio Frontend:** https://github.com/vulcanojoaquin/APP-NASA
-- **Tablero Kanban:** `<URL_DEL_TABLERO>`
-- **Deploy Backend:** `<URL_VERCEL>`
-- **Deploy Frontend actualizado:** `<URL_FRONTEND_DEPLOY>`
+- **Tablero Kanban:** https://linear.app/app-nasa-express/team/APP/overview
+- **Deploy Backend:** https://app-nasa-express.vercel.app/api/apod
+- **Deploy Frontend actualizado:** https://www.appnasa.space/
 
 ---
 
