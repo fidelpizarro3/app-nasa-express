@@ -13,7 +13,10 @@ export const getAll = async (req, res) => {
 
 export const getById = async (req, res) => {
   try {
-    const apod = await apodService.getById(Number(req.params.id));
+    const id = Number(req.params.id);
+    if (Number.isNaN(id)) return res.status(400).json({ error: "ID inválido" });
+
+    const apod = await apodService.getById(id);
     if (!apod) return res.status(404).json({ error: "Recurso no encontrado" });
     res.json(apod);
   } catch {
@@ -35,10 +38,13 @@ export const create = async (req, res) => {
 
 export const update = async (req, res) => {
   try {
+    const id = Number(req.params.id);
+    if (Number.isNaN(id)) return res.status(400).json({ error: "ID inválido" });
+
     const { isValid, errors } = validateApod(req.body);
     if (!isValid) return res.status(400).json({ error: "Datos inválidos", details: errors });
 
-    const apod = await apodService.update(Number(req.params.id), req.body);
+    const apod = await apodService.update(id, req.body);
     if (!apod) return res.status(404).json({ error: "Recurso no encontrado" });
     res.json(apod);
   } catch {
@@ -48,7 +54,10 @@ export const update = async (req, res) => {
 
 export const remove = async (req, res) => {
   try {
-    const apod = await apodService.remove(Number(req.params.id));
+    const id = Number(req.params.id);
+    if (Number.isNaN(id)) return res.status(400).json({ error: "ID inválido" });
+
+    const apod = await apodService.remove(id);
     if (!apod) return res.status(404).json({ error: "Recurso no encontrado" });
     res.status(204).send();
   } catch {

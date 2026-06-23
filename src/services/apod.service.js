@@ -68,18 +68,22 @@ export const create = async (data) => {
  * @param {Object} data - Datos actualizados del APOD
  */
 export const update = async (id, data) => {
+  const apodId = parseInt(id, 10);
+  const existing = await prisma.apod.findUnique({ where: { id: apodId } });
+  if (!existing) return null;
+
   return prisma.apod.update({
-    where: {
-      id: parseInt(id, 10),
-    },
+    where: { id: apodId },
     data,
   });
 };
 
 export const remove = async (id) => {
+  const apodId = parseInt(id, 10);
+  const existing = await prisma.apod.findUnique({ where: { id: apodId } });
+  if (!existing) return null;
+
   return prisma.apod.delete({
-    where: {
-      id: parseInt(id, 10),
-    },
+    where: { id: apodId },
   });
 };
