@@ -22,4 +22,27 @@ model Apod {
   copyright   String?
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
+  favorites   Favorite[]
 }
+
+model User {
+  id        Int        @id @default(autoincrement())
+  name      String
+  email     String     @unique
+  password  String
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+  favorites Favorite[]
+}
+
+model Favorite {
+  id        Int      @id @default(autoincrement())
+  userId    Int
+  apodId    Int
+  createdAt DateTime @default(now())
+  user      User     @relation(fields: [userId], references: [id])
+  apod      Apod     @relation(fields: [apodId], references: [id])
+
+  @@unique([userId, apodId])
+}
+
