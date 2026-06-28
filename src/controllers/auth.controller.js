@@ -1,16 +1,16 @@
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import * as userService from "../services/user.service.js";
+import { validateRegister, validateLogin } from "../validations/auth.validation.js";
 
 export const register = async (req, res) => {
   try {
-    const { name, email, password } = req.body;
-
-    if (!name || !email || !password) {
-      return res
-        .status(400)
-        .json({ error: "Nombre, email y contraseña son requeridos" });
+    const { isValid, errors } = validateRegister(req.body);
+    if (!isValid) {
+      return res.status(400).json({ error: "Datos inválidos", details: errors });
     }
+
+    const { name, email, password } = req.body;
 
     const existing = await userService.findByEmail(email);
     if (existing) {
@@ -33,13 +33,12 @@ export const register = async (req, res) => {
 
 export const login = async (req, res) => {
   try {
-    const { email, password } = req.body;
-
-    if (!email || !password) {
-      return res
-        .status(400)
-        .json({ error: "Email y contraseña son requeridos" });
+    const { isValid, errors } = validateLogin(req.body);
+    if (!isValid) {
+      return res.status(400).json({ error: "Datos inválidos", details: errors });
     }
+
+    const { email, password } = req.body;
 
     const user = await userService.findByEmail(email);
     if (!user) {
